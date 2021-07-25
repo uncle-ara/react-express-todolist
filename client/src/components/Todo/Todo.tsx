@@ -1,6 +1,11 @@
 import React from "react"
+import { Todo as TodoStruct } from "../../../../types"
 
-const Todo = () => {
+export type Props = {
+  value: TodoStruct
+}
+
+const Todo = ({ value }: Props) => {
   return (
     <>
       <h2 id="list-heading">Count Task</h2>
@@ -12,15 +17,15 @@ const Todo = () => {
           <div className="c-cb">
             <input id="todo-0" type="checkbox" defaultChecked={false} />
             <label className="todo-label" htmlFor="todo-0">
-              Eat
+              {value.text}
             </label>
           </div>
           <div className="btn-group">
             <button type="button" className="btn">
-              Edit <span className="visually-hidden">Eat</span>
+              Edit
             </button>
             <button type="button" className="btn btn__danger">
-              Delete <span className="visually-hidden">Eat</span>
+              Delete
             </button>
           </div>
         </li>

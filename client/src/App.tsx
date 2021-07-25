@@ -1,8 +1,17 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+
 import Filters from "./components/Filters/Filters"
 import Todo from "./components/Todo/Todo"
+import { Todo as TodosData, Todos } from "../../types"
+import { getTodos } from "./api"
 
 const App = () => {
+  const [todos, setTodos] = useState<Todos>({})
+
+  useEffect(() => {
+    getTodos().then(setTodos)
+  }, [])
+
   return (
     <div className="todoapp stack-large">
       <h1>TodoList</h1>
@@ -24,7 +33,9 @@ const App = () => {
         </button>
       </form>
       <Filters />
-      <Todo />
+      {Object.values(todos).map((todo) => {
+        return <Todo key={todo.id} value={todo} />
+      })}
     </div>
   )
 }
