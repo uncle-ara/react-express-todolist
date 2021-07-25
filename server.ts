@@ -15,9 +15,7 @@ app.use(express.json())
 
 app.use(cors())
 
-const storage: Todos = {
-  [uuidv4()]: { id: "123", text: "string", date: 123 },
-}
+const storage: Todos = {}
 
 app.get("/", (req, res) => {
   res.status(200).json(storage)
@@ -31,9 +29,19 @@ app.post("/", (req, res) => {
     selected: false,
   }
   storage[newTodo.id] = newTodo
-  res.status(201).json(storage)
+  res.status(201).json(newTodo)
+})
+
+app.put("/", (req, res) => {
+  storage[req.body.id] = req.body
+  res.status(201).json(req.body)
+})
+
+app.delete("/", (req, res) => {
+  delete storage[req.body.id]
+  res.status(200).json(req.body)
 })
 
 app.listen(PORT, () => {
-  console.log("hi")
+  console.log("Test")
 })
